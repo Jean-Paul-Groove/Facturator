@@ -1,0 +1,15 @@
+.edit-item-line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;   
+}
+.edit-item-line-button-container{
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+.edit-item-addButton-container{
+width: 100%;
+display: flex;
+justify-content: center;
+}

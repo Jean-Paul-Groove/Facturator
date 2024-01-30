@@ -1,0 +1,14 @@
+.pdf-container{
+    margin: 0 auto 0 auto;
+    width:80%;
+    min-height: 800px;
+    height:100%;
+  }
+.edit-buttons-container{
+    position: fixed;
+    bottom: 10px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+
+}
