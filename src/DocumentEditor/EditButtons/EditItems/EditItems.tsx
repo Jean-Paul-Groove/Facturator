@@ -66,7 +66,7 @@ function EditItems(props:EditItemProps){
       </div>))}
       <div className="edit-item-addButton-container"> <Button shape="circle"  type="default" onClick={addItem}>+</Button></div>
    
-    <EditItemForm itemList={items} setItemList={itemSetter} typeOfForm={typeOfForm} setModalOpen={setOpenItemForm} isModalOpen={openItemForm} index={itemIndex}/>
+    {openItemForm && <EditItemForm itemList={items} setItemList={itemSetter} typeOfForm={typeOfForm} setModalOpen={setOpenItemForm} isModalOpen={openItemForm} index={itemIndex}/>}
     </Modal></>)
 }
 
