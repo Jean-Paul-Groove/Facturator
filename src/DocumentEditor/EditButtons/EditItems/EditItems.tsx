@@ -50,11 +50,11 @@ function EditItems(props:EditItemProps){
 
 
     return (<><Button type="default" onClick={toggleItemList}>Items</Button>
-    <Modal title="Items de la facture" open={itemListIsVisible} onOk={handleOk} onCancel={handleCancel}>
+    <Modal title="Items de la facture" open={itemListIsVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
     {items.map((item, index )=> (
       <div className="edit-item-line" key={index+"-item"}>
         <p >{item.denomination}</p>
-        <p >{item.ttc} €</p>
+        <p >{item.ttc.toFixed(2)} €</p>
         <div className="edit-item-line-button-container">
           <Button type="default" onClick={()=>deleteItem(index)}>
           X

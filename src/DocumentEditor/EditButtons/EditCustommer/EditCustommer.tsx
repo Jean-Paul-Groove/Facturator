@@ -2,7 +2,8 @@ import { useState } from "react"
 import { Button, Modal } from "antd"
 import Custommer from "../../../types/Custommer"
 import { EditOutlined } from "@ant-design/icons"
-import EditCustommerForm from "./EditCustommerForm"
+import EditCustommerForm from "./EditCustommerForm/EditCustommerForm"
+import "./EditCustommer.css"
 
 type EditCustommerProps = {
     custommer:Custommer,
@@ -26,11 +27,18 @@ function EditCustommer(props:EditCustommerProps){
     return (<><Button type="default" onClick={()=>setCustommerInfoisVisible(true)}>Client</Button>
     {custommerInfoIsVisible && <Modal title="Informations du client" open={custommerInfoIsVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
    { formIsOpen ? <EditCustommerForm custommer={custommer} custommerSetter={custommerSetter} setFormIsOpen={setFormIsOpen}/> :
-    <div><Button type="default" onClick={()=>setFormIsOpen(true)}><EditOutlined /></Button>
-      <div>
-        <p>Nom: {custommer.name}</p>
-        <p>Facturation: {custommer.billingAddress}</p>
-        {custommer.billingAddress !== custommer.deliveryAddress && <p>Livraison: {custommer.deliveryAddress}</p>}
+    <div>
+    <div className="edit-custommer-openForm-button"><Button type="default" onClick={()=>setFormIsOpen(true)}><EditOutlined /></Button></div>
+          <div>
+        <p className="edit-custommer-name">{custommer.name}</p>
+        <p className="edit-custommer-address-section">Adresse de livraison: </p>
+        <p>{custommer.deliveryAddress.location}</p>
+        <p>{custommer.deliveryAddress.postalCode} {custommer.deliveryAddress.city}</p>
+        {custommer.billingAddress !== custommer.deliveryAddress && <>
+        <p className="edit-custommer-address-section">Adresse de facturation: </p>
+        <p>{custommer.billingAddress.location} </p>
+        <p>{custommer.billingAddress.postalCode} {custommer.billingAddress.city} </p>
+        </>}
         {custommer.vatNumber && <p>TVA: {custommer.vatNumber}</p>}
       </div>
     </div>}

@@ -95,7 +95,7 @@ function EditItemForm(props:EditItemFormProps){
                 <Form.Item label="Taux TVA en %" name="vatRate"rules={[{ required: true, message: 'Le taux de TVA' }]} >
                     <InputNumber  onChange={(e)=>setItemToEdit({...itemToEdit,vatRate:e?+e?.valueOf():0, ttc: calculateTotal()})}/>
                 </Form.Item>
-                <p>Total: {itemToEdit.ttc} €</p>
+                <p>Total: {itemToEdit.ttc.toFixed(2)} €</p>
             </Form>
         </Modal>
     )

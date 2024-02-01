@@ -1,20 +1,104 @@
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
 import InvoiceItem from '../../types/InvoiceItem';
 import Custommer from '../../types/Custommer';
+import Company from '../../types/Company';
+import logo from'../../assets/logo/Poster psyché.jpg'
+import Header from '../../types/Header';
 
 type PDFPageProps = {
   items:InvoiceItem[],
-  custommer:Custommer
+  custommer:Custommer,
+  company:Company,
+  header: Header
 }
 
 function PDFPage(props:PDFPageProps){
+  Font.register({
+    family: "OpenSans", fonts: [
+      {src:"/src/assets/fonts/Open_Sans/static/OpenSans-Light.ttf"},
+      {src:"/src/assets/fonts/Open_Sans/static/OpenSans-LightItalic.ttf", fontStyle:'italic'},
+      {src:"/src/assets/fonts/Open_Sans/static/OpenSans-Regular.ttf", fontWeight: 500},
+      {src:"/src/assets/fonts/Open_Sans/static/OpenSans-Medium.ttf", fontWeight: 400},
+    ]
+  })
 const tableHeaderFontColor = "white"
-const tableHeaderBackgroundColor = "blue"
-const styles = StyleSheet.create({
-    page:{
-    backgroundColor: 'white',
-    padding:10
+const tableHeaderBackgroundColor = "#BBE2EC"
+const generalStyles = StyleSheet.create({
+  page:{
+  backgroundColor: 'white',
+  padding:10,
+  fontFamily:'OpenSans'
+},
+  
+})
+const headerStyles = StyleSheet.create({
+  invoiceInfo:{
+    position:"absolute",
+    top:45,
+    right:10,
+    padding:5
   },
+  title:{
+    position:"absolute",
+    top:5,
+    right:10,
+    fontSize:30,
+    fontWeight:500,
+    color: tableHeaderBackgroundColor
+
+  },
+  invoiceNumber:{
+    fontSize:20,
+    fontWeight:500
+  },
+  invoiceDate:{
+    fontSize:15
+  },
+  logo:{
+    objectFit:'contain',
+    objectPositionX:0
+  },
+  logoContainer:{
+    padding:10,
+    maxWidth:300,
+    maxHeight:120
+  }
+})
+const companiesStyles = StyleSheet.create({
+  companyInfo:{
+    position:"absolute",
+    top:135,
+    left:10,
+    padding:4,
+    width: "45vw",
+    height:"15vh",
+    border:"1px solid " + tableHeaderBackgroundColor
+  },
+  customerInfo:{
+    position:"absolute",
+    top:135,
+    right:10,
+    width:"45vw",
+    padding:4,
+    height:"15vh",
+    border:"1px solid "+ tableHeaderBackgroundColor
+  },
+  title:{
+    fontWeight:500
+  },
+  address:{
+    fontSize:15,
+    fontWeight:400
+  },
+  contact:{
+    fontStyle:"italic",
+    fontSize:12
+  },
+  legalInfo:{
+    fontSize:13
+  }
+})
+const tableStyles = StyleSheet.create({
   table:{
     position:"absolute",
     top:280,
@@ -23,7 +107,7 @@ const styles = StyleSheet.create({
     marginLeft:'auto',
     marginRight:'auto',
     textAlign:"center",
-    border:"1px solid blue",
+    border:"1px solid "+ tableHeaderBackgroundColor,
     borderRadius:"5px"
   },tableRow:{
     flexDirection:"row",
@@ -32,46 +116,38 @@ const styles = StyleSheet.create({
     color:tableHeaderFontColor,
     backgroundColor:tableHeaderBackgroundColor,
     fontSize:"12px",
-    fontWeight:"ultrabold"
+    fontWeight:500
   },
-    quantityColumn:{
-    borderLeft:"1px solid gray",
+  quantityColumn:{
     borderRight:"1px solid gray",
     width: "2.7cm"
-    },
-    denominationColumn:{
-    borderLeft:"1px solid gray",
+  },
+  denominationColumn:{
     borderRight:"1px solid gray",
     width: "5cm"
-    },
-    priceColumn:{
-    borderLeft:"1px solid gray",
+  },
+  priceColumn:{
     borderRight:"1px solid gray",
     width: "2cm"
-    },
-    reductionColumn:{
-    borderLeft:"1px solid gray",
+  },
+  reductionColumn:{
     borderRight:"1px solid gray",
     width: "3cm"
-    },
-    vatColumn:{
-    borderLeft:"1px solid gray",
+  },
+  vatColumn:{
     borderRight:"1px solid gray",
     width: "2cm"
-    },
-    htColumn:{
-    borderLeft:"1px solid gray",
+  },
+   htColumn:{
     borderRight:"1px solid gray",
     width: "2.5cm"
-    },
-    ttcColumn:{
-    borderLeft:"1px solid gray",
-    borderRight:"1px solid gray",
+  },
+  ttcColumn:{
     width: "2.5cm"
-    },
-    tableTotal:{
+  },
+  tableTotal:{
       position:"absolute",
-      bottom:-30,
+      bottom:-35,
       right:0,
       padding:4,
       minWidth:"15vw",
@@ -81,96 +157,85 @@ const styles = StyleSheet.create({
       borderBottomRightRadius:"5px",
       borderBottomLeftRadius:"5px"
     },
-    companyInfo:{
-      position:"absolute",
-      top:120,
-      left:10,
-      padding:4,
-      width: "45vw",
-      height:"15vh",
-      border:"1px solid blue"
-    },
-    customerInfo:{
-      position:"absolute",
-      top:120,
-      right:10,
-      width:"45vw",
-      padding:4,
-      height:"15vh",
-      border:"1px solid blue"
-    },
-    invoiceInfo:{
-      backgroundColor:"#f2f9fa",
-      position:"absolute",
-      top:45,
-      right:10
-    } ,title:{
-      position:"absolute",
-      top:20,
-      right:10,
-      fontSize:"20px"
-
-    },
-  
 })
-const {items, custommer}=props
+
+
+const {items, custommer, company, header}=props
 
 const total = items.reduce((accumulator, currentvalue)=>accumulator + currentvalue.ttc, 0)
 
     return( 
     <Document pageLayout="singlePage" pageMode="useNone">
-        <Page size="A4" style={styles.page} orientation='portrait'>
-          <View style={styles.companyInfo}>
-            <Text>Nom de l'entreprise</Text>
-            <Text>Adresse l'entreprise</Text>
-            <Text>Tel de l'entreprise</Text>
-            <Text>Ref de l'entreprise</Text>
+        <Page size="A4" style={generalStyles.page} orientation='portrait'>
+          <View style={headerStyles.logoContainer}>
+            <Image src={logo} style={headerStyles.logo}/>
           </View>
-          <View style={styles.title}>
+          <View style={companiesStyles.companyInfo}>
+            <Text style={companiesStyles.title}>{company.name}</Text>
+            <View style={companiesStyles.address}>
+              <Text>{company.address.location}</Text>
+              <Text>{company.address.postalCode} {company.address.city}</Text>
+            </View>
+            <View style={companiesStyles.legalInfo}>
+               <Text>{company.legalReference}</Text>
+            {company.vatNumber && <Text>Numéro TVA: {company.vatNumber}</Text>}
+            </View>
+            <View style={companiesStyles.contact}>
+              {company.email && <Text>@: {company.email}</Text>}
+              {company.phoneNumber && <Text>Tel: {company.phoneNumber}</Text>}
+            </View>
+           
+          </View>
+          <View style={headerStyles.title}>
             <Text>FACTURE</Text>
           </View>
-          <View style={styles.customerInfo}>
-            <Text>{custommer.name}</Text>
+          <View style={headerStyles.invoiceInfo}>
+            <Text style={headerStyles.invoiceNumber}>N°: {header.number}</Text>
+            <Text style={headerStyles.invoiceDate}>{header.date}</Text>
+          </View>
+          <View style={companiesStyles.customerInfo}>
+            <Text style={companiesStyles.title}>{custommer.name}</Text>
+            <View style={companiesStyles.address}>
             {custommer.billingAddress !== custommer.deliveryAddress ?
             <>
             <Text>Adresse de livraison:</Text>
-            <Text> {custommer.deliveryAddress}</Text>
+            <Text>{custommer.deliveryAddress.location}</Text>
+            <Text>{custommer.deliveryAddress.postalCode} {custommer.deliveryAddress.city}</Text>
             <Text>Adresse de facturation:</Text>
-            <Text>{custommer.billingAddress}</Text>
+            <Text>{custommer.billingAddress.location}</Text>
+            <Text>{custommer.billingAddress.postalCode} {custommer.billingAddress.city}</Text>
             </>: 
             <>
-            <Text>{custommer.deliveryAddress}</Text></>
+            <Text>{custommer.deliveryAddress.location}</Text>
+            <Text>{custommer.deliveryAddress.postalCode} {custommer.deliveryAddress.city}</Text>
+            </>
             }
+            </View>
           </View>
-          <View style={styles.invoiceInfo}>
-          <Text>Numéro de facture</Text>
-            <Text>Date de facturation</Text>
-            <Text>Date prestation</Text>
-          </View>
-          <View style={styles.table}>
-            <View style={styles.headerRow} >
-              <Text style={styles.quantityColumn}>QTé</Text>
-              <Text style={styles.denominationColumn}>DESIGNATION</Text>
-              <Text style={styles.priceColumn}>PRIX U.</Text>
-              <Text style={styles.reductionColumn}>Réduction</Text>
-              <Text style={styles.vatColumn}>TVA</Text>
-              <Text style={styles.htColumn}>HT</Text>
-              <Text style={styles.ttcColumn}>TTC</Text>
+          <View style={tableStyles.table}>
+            <View style={tableStyles.headerRow} >
+              <Text style={tableStyles.quantityColumn}>QTé</Text>
+              <Text style={tableStyles.denominationColumn}>DESIGNATION</Text>
+              <Text style={tableStyles.priceColumn}>PRIX U.</Text>
+              <Text style={tableStyles.reductionColumn}>Réduction</Text>
+              <Text style={tableStyles.vatColumn}>TVA</Text>
+              <Text style={tableStyles.htColumn}>HT</Text>
+              <Text style={tableStyles.ttcColumn}>TTC</Text>
             </View>
             {items.map((item, index)=>(
-              <View key={'tableLine-'+index} style={styles.tableRow}>
-                <Text style={styles.quantityColumn}>{item.quantity}</Text>
-                <Text style={styles.denominationColumn}>{item.denomination}</Text>
-                <Text style={styles.priceColumn}>{item.price}</Text>
-                <Text style={styles.reductionColumn}>{item.reduction}</Text>
-                <Text style={styles.vatColumn}>{item.vatRate}</Text>
-                <Text style={styles.htColumn}>{item.ht.toFixed(2)}</Text>
-                <Text style={styles.ttcColumn}>{item.ttc.toFixed(2)}</Text>
+              <View key={'tableLine-'+index} style={tableStyles.tableRow}>
+                <Text style={tableStyles.quantityColumn}>{item.quantity}</Text>
+                <Text style={tableStyles.denominationColumn}>{item.denomination}</Text>
+                <Text style={tableStyles.priceColumn}>{item.price}</Text>
+                <Text style={tableStyles.reductionColumn}>{item.reduction != 0 && item.reduction}</Text>
+                <Text style={tableStyles.vatColumn}>{item.vatRate != 0 && item.vatRate}</Text>
+                <Text style={tableStyles.htColumn}>{item.ht.toFixed(2)}</Text>
+                <Text style={tableStyles.ttcColumn}>{item.ttc.toFixed(2)}</Text>
               </View>
             ))}
              
-             <View style={styles.tableTotal}>
-              <Text>Total: {total} €</Text>
+             <View style={tableStyles.tableTotal}>
+              <Text>Total: {total.toFixed(2)} €</Text>
              </View>
           </View>
           

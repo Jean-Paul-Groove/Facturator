@@ -1,0 +1,10 @@
+.edit-company-section{
+    text-decoration: underline;
+}
+.edit-company-name{
+    font-weight: bold;
+}
+.edit-company-openForm-button{
+    position: absolute;
+    right: 10px;
+}

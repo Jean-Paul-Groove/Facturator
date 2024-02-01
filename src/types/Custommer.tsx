@@ -1,7 +1,9 @@
+import Address from "./Address";
+
 type Custommer = {
     name:string;
-    deliveryAddress:string;
-    billingAddress:string;
+    deliveryAddress:Address;
+    billingAddress:Address;
     vatNumber?:string
     
 }
