@@ -8,6 +8,7 @@
     margin-bottom: 3px;
 }
 .edit-item-line-button-container{
+    width: 100%;
     display: flex;
     justify-content: space-around;
 }
@@ -15,4 +16,9 @@
 width: 100%;
 display: flex;
 justify-content: center;
+}
+.edit-item-modal-buttons-container{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-around;
 }

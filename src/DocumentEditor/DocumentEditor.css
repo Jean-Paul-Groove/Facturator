@@ -1,21 +1,29 @@
+.header{
+  height: 60px;
+  margin: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(211, 211, 211, 0.400);
+}
+.edit-document{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
 .pdf-container{
-    margin: 3vh auto 0 auto;
-    width:80vw;
-    height: 90vh;
+    width:100%;
+    height: calc(100vh - 100px);
+    border-left: .2px solid rgba(211, 211, 211, 0.400);
   }
 .edit-buttons-container{
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 10px;
-
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.edit-button{
+  margin-bottom: 3vh;
 }
 #title{
-  font-size:70px;
-  transform: rotate(-90deg);
-  position: fixed;
-  left: -190px;
-  top: 30vh;
+  font-size:40px;
+  text-align: center;
+
 }

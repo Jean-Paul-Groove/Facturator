@@ -27,7 +27,8 @@ const generalStyles = StyleSheet.create({
   page:{
   backgroundColor: 'white',
   padding:10,
-  fontFamily:'OpenSans'
+  paddingBottom: 100,
+  fontFamily:'OpenSans',
 },
   
 })
@@ -165,7 +166,7 @@ const {items, custommer, company, header}=props
 const total = items.reduce((accumulator, currentvalue)=>accumulator + currentvalue.ttc, 0)
 
     return( 
-    <Document pageLayout="singlePage" pageMode="useNone">
+    <Document pageLayout="singlePage" pageMode="fullScreen">
         <Page size="A4" style={generalStyles.page} orientation='portrait'>
           <View style={headerStyles.logoContainer}>
             <Image src={logo} style={headerStyles.logo}/>

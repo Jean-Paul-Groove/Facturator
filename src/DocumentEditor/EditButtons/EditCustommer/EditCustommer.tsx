@@ -24,7 +24,7 @@ function EditCustommer(props:EditCustommerProps){
       };
 
 
-    return (<><Button type="default" onClick={()=>setCustommerInfoisVisible(true)}>Client</Button>
+    return (<><Button className="edit-button" type="default" onClick={()=>setCustommerInfoisVisible(true)}>Client</Button>
     {custommerInfoIsVisible && <Modal title="Informations du client" open={custommerInfoIsVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
    { formIsOpen ? <EditCustommerForm custommer={custommer} custommerSetter={custommerSetter} setFormIsOpen={setFormIsOpen}/> :
     <div>

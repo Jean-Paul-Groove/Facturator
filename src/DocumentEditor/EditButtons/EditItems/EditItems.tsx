@@ -10,22 +10,25 @@ type EditItemProps = {
     itemSetter:React.Dispatch<React.SetStateAction<InvoiceItem[]>>
 }
 function EditItems(props:EditItemProps){
-
+    const {items, itemSetter} =props
     const [itemListIsVisible, setItemListIsVisible] = useState(false)
     const [openItemForm, setOpenItemForm] = useState(false)
     const [typeOfForm, setTypeOfForm] = useState<'new'|'edit'>('new')
     const [itemIndex, setItemIndex] = useState<number |undefined>(undefined)
-    const {items, itemSetter} =props
+    const [newItemList, setNewItemList] = useState<InvoiceItem[]>(items)
+    
 
 
     function toggleItemList(){
         setItemListIsVisible(!itemListIsVisible)
     }
     const handleOk = () => {
+      itemSetter(newItemList)
         setItemListIsVisible(false);
       };
     
       const handleCancel = () => {
+        setNewItemList(items)
         setItemListIsVisible(false);
       };
       const addItem = () => {
@@ -45,13 +48,14 @@ function EditItems(props:EditItemProps){
       const deleteItem = (index:number) => {
         const newItems = [...items]
         newItems.splice(index, 1)
-        itemSetter(newItems)
+        setNewItemList(newItems)
       };
 
 
-    return (<><Button type="default" onClick={toggleItemList}>Items</Button>
+
+    return (<><Button className="edit-button" type="default" onClick={toggleItemList}>Items</Button>
     <Modal title="Items de la facture" open={itemListIsVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-    {items.map((item, index )=> (
+    {newItemList.map((item, index )=> (
       <div className="edit-item-line" key={index+"-item"}>
         <p >{item.denomination}</p>
         <p >{item.ttc.toFixed(2)} €</p>
@@ -65,8 +69,12 @@ function EditItems(props:EditItemProps){
         
       </div>))}
       <div className="edit-item-addButton-container"> <Button shape="circle"  type="default" onClick={addItem}>+</Button></div>
+      <div className="edit-item-modal-buttons-container">
+         <Button  type="primary" onClick={()=>handleOk()}>Valider</Button>
+         <Button  type="default" onClick={()=>handleCancel()}>Annuler</Button>
+      </div>
    
-    {openItemForm && <EditItemForm itemList={items} setItemList={itemSetter} typeOfForm={typeOfForm} setModalOpen={setOpenItemForm} isModalOpen={openItemForm} index={itemIndex}/>}
+    {openItemForm && <EditItemForm itemList={newItemList} setItemList={setNewItemList} typeOfForm={typeOfForm} setModalOpen={setOpenItemForm} isModalOpen={openItemForm} index={itemIndex}/>}
     </Modal></>)
 }
 

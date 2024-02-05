@@ -24,7 +24,7 @@ function EditCompany(props: EditCompanyProps){
       };
 
 
-    return(<><Button type="default" onClick={()=>setCompanyInfoisVisible(true)}>Vous</Button>
+    return(<><Button className="edit-button" type="default" onClick={()=>setCompanyInfoisVisible(true)}>Vous</Button>
     {companyInfoIsVisible && <Modal title="Informations de l'entreprise" open={companyInfoIsVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
    { formIsOpen ? <EditCompanyForm company={company} companySetter={companySetter} setFormIsOpen={setFormIsOpen}/> :
     <div>

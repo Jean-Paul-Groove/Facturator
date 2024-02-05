@@ -24,7 +24,7 @@ function EditHeader(props:EditHeaderProps){
       };
 
 
-    return (<><Button type="default" onClick={()=>setHeaderInfoisVisible(true)}>En-tête</Button>
+    return (<><Button className="edit-button" type="default" onClick={()=>setHeaderInfoisVisible(true)}>En-tête</Button>
     {headerInfoIsVisible && <Modal title="Informations de la facture" open={headerInfoIsVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
    { formIsOpen ? <EditHeaderForm header={header} headerSetter={headerSetter} setFormIsOpen={setFormIsOpen}/> :
     <div>
