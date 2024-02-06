@@ -1,6 +1,6 @@
 type Header = {
-    date:string,
-    number: string
-}
+  date: string;
+  number: string;
+};
 
-export default Header
+export default Header;

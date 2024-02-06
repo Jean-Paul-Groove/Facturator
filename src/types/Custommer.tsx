@@ -1,11 +1,10 @@
 import Address from "./Address";
 
 type Custommer = {
-    name:string;
-    deliveryAddress:Address;
-    billingAddress:Address;
-    vatNumber?:string
-    
-}
+  name: string;
+  deliveryAddress: Address;
+  billingAddress: Address;
+  vatNumber?: string;
+};
 
-export default Custommer
+export default Custommer;

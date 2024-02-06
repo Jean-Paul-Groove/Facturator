@@ -1,8 +1,8 @@
 type Address = {
-    location:string;
-    postalCode:string;
-    city:string;
-    country?:string;
-}
+  location: string;
+  postalCode: string;
+  city: string;
+  country?: string;
+};
 
-export default Address
+export default Address;

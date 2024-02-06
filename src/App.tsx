@@ -1,14 +1,8 @@
-import './App.css'
-import DocumentEditor from './DocumentEditor/DocumentEditor';
-
+import "./App.css";
+import DocumentEditor from "./DocumentEditor/DocumentEditor";
 
 function App() {
-
-
-  return (
-<DocumentEditor/>
-      
-  )
+  return <DocumentEditor />;
 }
 
-export default App
+export default App;

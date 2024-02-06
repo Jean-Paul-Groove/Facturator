@@ -1,24 +1,24 @@
-.edit-item-line{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center ;
-    justify-items: center;
-    border-bottom: solid 1px black;
-    padding: 3px 0;
-    margin-bottom: 3px;
+.edit-item-line {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  justify-items: center;
+  border-bottom: solid 1px black;
+  padding: 3px 0;
+  margin-bottom: 3px;
 }
-.edit-item-line-button-container{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+.edit-item-line-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
-.edit-item-addButton-container{
-width: 100%;
-display: flex;
-justify-content: center;
+.edit-item-addButton-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-.edit-item-modal-buttons-container{
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-around;
+.edit-item-modal-buttons-container {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-around;
 }
