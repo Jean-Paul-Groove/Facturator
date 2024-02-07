@@ -35,6 +35,7 @@ function EditLogo(props: EditLogoProps) {
   return (
     <>
       <Button
+        block
         className="edit-button"
         type="default"
         onClick={() => setLogoPickerIsVisible(true)}

@@ -59,6 +59,7 @@ function EditTheme(props: EditThemeProps) {
   return (
     <>
       <Button
+        block
         className="edit-button"
         type="default"
         onClick={() => setThemePickerIsVisible(true)}

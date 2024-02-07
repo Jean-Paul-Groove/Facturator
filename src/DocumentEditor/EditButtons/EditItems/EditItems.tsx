@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal } from "antd";
 import InvoiceItem from "../../../types/InvoiceItem";
 import EditItemForm from "./EditItemForm";
-import { EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import "./EditItem.css";
 
 type EditItemProps = {
@@ -51,7 +51,12 @@ function EditItems(props: EditItemProps) {
 
   return (
     <>
-      <Button className="edit-button" type="default" onClick={toggleItemList}>
+      <Button
+        block
+        className="edit-button"
+        type="default"
+        onClick={toggleItemList}
+      >
         Items
       </Button>
       <Modal
@@ -66,12 +71,19 @@ function EditItems(props: EditItemProps) {
             <p>{item.denomination}</p>
             <p>{item.ttc.toFixed(2)} €</p>
             <div className="edit-item-line-button-container">
-              <Button type="default" onClick={() => deleteItem(index)}>
-                X
-              </Button>
-              <Button type="default" onClick={() => editItem(index)}>
-                <EditOutlined />
-              </Button>
+              <Button
+                type="default"
+                onClick={() => deleteItem(index)}
+                icon={<DeleteOutlined />}
+                shape="circle"
+              />
+
+              <Button
+                type="default"
+                onClick={() => editItem(index)}
+                shape="circle"
+                icon={<EditOutlined />}
+              />
             </div>
           </div>
         ))}

@@ -1,23 +1,17 @@
-import { pdf, PDFDownloadLink } from "@react-pdf/renderer";
-import PDFPage from "./PDFPage/PDFPage";
+import { pdf } from "@react-pdf/renderer";
 import "./DocumentEditor.css";
-import EditItems from "./EditButtons/EditItems/EditItems";
 import { useEffect, useState } from "react";
 import InvoiceItem from "../types/InvoiceItem";
-import EditCustommer from "./EditButtons/EditCustommer/EditCustommer";
 import Custommer from "../types/Custommer";
 import Address from "../types/Address";
-import EditCompany from "./EditButtons/EditCompany/EditCompany";
 import Company from "../types/Company";
-import EditHeader from "./EditButtons/EditHeader/EditHeader";
 import Header from "../types/Header";
-import { Button } from "antd";
 import PDFViewer from "./PDFViewer/PDFViewer";
-import EditTheme from "./EditButtons/EditTheme/EditTheme";
 import Theme from "../types/Theme";
 import Logo from "../types/Logo";
 import defaultLogo from "../assets/logo/Poster psyché.jpg";
-import EditLogo from "./EditButtons/EditLogo/EditLogo";
+import PDFDocument from "./PDFPage/PDFDocument";
+import EditMenu from "./EditMenu/EditMenu";
 const emptyAddress: Address = {
   location: "245 rue Hasard",
   postalCode: "01234",
@@ -58,10 +52,33 @@ function DocumentEditor() {
     url: defaultLogo,
     name: "Caméléon",
   });
+  const editMenuProps = {
+    editHeader: {
+      header: header,
+      setHeader: setHeader,
+    },
+    editCompany: {
+      company: company,
+      setCompany: setCompany,
+    },
+    editCustommer: {
+      custommer: custommer,
+      setCustommer: setCustommer,
+    },
+    editItems: {
+      itemList: itemList,
+      setItemList: setItemList,
+    },
+    editTheme: {
+      theme: theme,
+      setTheme: setTheme,
+    },
+    editLogo: { logo: logo, setLogo: setLogo },
+  };
   useEffect(
     function updatePDF() {
       pdf(
-        PDFPage({
+        PDFDocument({
           header: header,
           items: itemList,
           custommer: custommer,
@@ -82,34 +99,13 @@ function DocumentEditor() {
     <>
       {" "}
       <div className="header">
+        <EditMenu {...editMenuProps} drawer />
         <h1 id="title">FACTURATOR</h1>
       </div>
       <div className="edit-document">
         <div className="edit-buttons-container">
           <p>Personnalisez votre facture: </p>
-          <EditHeader header={header} headerSetter={setHeader} />
-          <EditCompany company={company} companySetter={setCompany} />
-          <EditCustommer custommer={custommer} custommerSetter={setCustommer} />
-          <EditItems items={itemList} itemSetter={setItemList} />
-          <EditTheme theme={theme} themeSetter={setTheme} />
-          <EditLogo logo={logo} logoSetter={setLogo} />
-          <Button type="primary" className="edit-button">
-            {" "}
-            <PDFDownloadLink
-              document={
-                <PDFPage
-                  theme={theme}
-                  header={header}
-                  company={company}
-                  items={itemList}
-                  custommer={custommer}
-                  logo={logo}
-                />
-              }
-            >
-              Télécharger
-            </PDFDownloadLink>
-          </Button>
+          <EditMenu {...editMenuProps} />
         </div>
         <div className="pdf-container">
           {pdfFile && <PDFViewer file={pdfFile} />}

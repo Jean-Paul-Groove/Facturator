@@ -4,6 +4,7 @@ import { pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "./PDFViewer.css";
+import Loader from "../../Loader/Loader";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
@@ -18,6 +19,7 @@ function PDFViewer(props: PDFViewerProps) {
   const [containerHeight, setContainerHeight] = useState<number>(
     calculateContainerHeight()
   );
+
   const { file } = props;
   useEffect(() => {
     const handleResize = () => {
@@ -35,24 +37,38 @@ function PDFViewer(props: PDFViewerProps) {
     setTotalPages(numPages);
   }
   function calculateContainerHeight(): number {
-    return +getComputedStyle(
+    const containerHeight = +getComputedStyle(
       document.getElementsByClassName("pdf-container")[0]
     ).height.split("px")[0];
+    const containerWidth = +getComputedStyle(
+      document.getElementsByClassName("pdf-container")[0]
+    ).width.split("px")[0];
+    const aspectRatio = containerHeight / containerWidth;
+
+    if (aspectRatio > 1.4) {
+      return containerWidth * 1.4;
+    } else {
+      return containerHeight;
+    }
   }
 
   return (
     <div className="pdfviewer-view">
       <Document
+        loading={<Loader />}
         className={"pdfviewer-document"}
         file={file}
         onLoadSuccess={onDocumentLoadSuccess}
       >
-        <Page
-          devicePixelRatio={2}
-          height={containerHeight}
-          className={"pdfviewer-page"}
-          pageNumber={pageNumber}
-        />
+        {
+          <Page
+            loading={<Loader />}
+            devicePixelRatio={2}
+            height={containerHeight}
+            className={"pdfviewer-page"}
+            pageNumber={pageNumber}
+          />
+        }
       </Document>
       <p className="pdfviewer-pageControls">
         {pageNumber - 1 >= 1 && (

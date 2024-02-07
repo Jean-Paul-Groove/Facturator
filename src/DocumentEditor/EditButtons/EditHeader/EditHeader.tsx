@@ -29,6 +29,7 @@ function EditHeader(props: EditHeaderProps) {
         className="edit-button"
         type="default"
         onClick={() => setHeaderInfoisVisible(true)}
+        block
       >
         En-tête
       </Button>

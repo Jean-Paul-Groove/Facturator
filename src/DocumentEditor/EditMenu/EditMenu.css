@@ -1,0 +1,12 @@
+.edit-menu-dropdown-button {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  display: none;
+}
+
+@media screen and (max-width: 690px) {
+  .edit-menu-dropdown-button {
+    display: initial;
+  }
+}

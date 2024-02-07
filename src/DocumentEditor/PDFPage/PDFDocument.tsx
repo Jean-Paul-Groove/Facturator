@@ -14,7 +14,7 @@ import Header from "../../types/Header";
 import Theme from "../../types/Theme";
 import Logo from "../../types/Logo";
 
-type PDFPageProps = {
+type PDFDocumentProps = {
   items: InvoiceItem[];
   custommer: Custommer;
   company: Company;
@@ -23,7 +23,7 @@ type PDFPageProps = {
   logo: Logo;
 };
 
-function PDFPage(props: PDFPageProps) {
+function PDFDocument(props: PDFDocumentProps) {
   const { items, custommer, company, header, theme, logo } = props;
   Font.register({
     family: "OpenSans",
@@ -205,8 +205,8 @@ function PDFPage(props: PDFPageProps) {
             {company.vatNumber && <Text>Numéro TVA: {company.vatNumber}</Text>}
           </View>
           <View style={companiesStyles.contact}>
-            {company.email && <Text>@: {company.email}</Text>}
-            {company.phoneNumber && <Text>Tel: {company.phoneNumber}</Text>}
+            {company.email && <Text>em@il : {company.email}</Text>}
+            {company.phoneNumber && <Text>Tel : {company.phoneNumber}</Text>}
           </View>
         </View>
         <View style={headerStyles.title}>
@@ -282,4 +282,4 @@ function PDFPage(props: PDFPageProps) {
   );
 }
 
-export default PDFPage;
+export default PDFDocument;

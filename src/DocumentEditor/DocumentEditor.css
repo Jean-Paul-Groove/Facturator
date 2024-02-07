@@ -3,6 +3,9 @@
   margin: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgba(211, 211, 211, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .edit-document {
   display: grid;
@@ -19,10 +22,25 @@
   justify-content: flex-start;
   flex-direction: column;
 }
-.edit-button {
-  margin-bottom: 3vh;
-}
+
 #title {
   font-size: 40px;
   text-align: center;
+}
+
+@media screen and (max-width: 690px) {
+  .edit-document {
+    grid-template-columns: 1fr;
+  }
+  .edit-buttons-container {
+    display: none;
+  }
+  #title {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 380px) {
+  #title {
+    font-size: 20px;
+  }
 }
