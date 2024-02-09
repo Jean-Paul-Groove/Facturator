@@ -25,3 +25,13 @@
 #edit-logo-logopicker-input {
   display: none;
 }
+.edit-logo-info {
+  font-size: small;
+  text-align: right;
+  font-style: italic;
+  padding-right: 10%;
+  font-weight: 200;
+}
+.edit-logo-error {
+  margin-top: 10px;
+}

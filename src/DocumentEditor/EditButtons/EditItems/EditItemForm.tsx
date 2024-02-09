@@ -1,6 +1,7 @@
-import { Modal, Form, Input, InputNumber } from "antd";
+import { Modal, Form, Input, InputNumber, DatePicker } from "antd";
 import InvoiceItem from "../../../types/InvoiceItem";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 type EditItemFormProps = {
   typeOfForm: "new" | "edit";
@@ -20,6 +21,7 @@ function EditItemForm(props: EditItemFormProps) {
     index,
   } = props;
   const [form] = Form.useForm();
+  const dateFormat = "DD.MM.YY";
   let item;
   const blankItem = {
     denomination: "",
@@ -27,7 +29,7 @@ function EditItemForm(props: EditItemFormProps) {
     price: 0,
     vatRate: 0,
     reduction: 0,
-    ht: 0,
+    date: "01.01.00",
     ttc: 0,
   };
 
@@ -40,23 +42,21 @@ function EditItemForm(props: EditItemFormProps) {
   } else {
     item = blankItem;
   }
-  const [itemToEdit, setItemToEdit] = useState(item);
-  form.setFieldValue("denomination", itemToEdit.denomination);
-  form.setFieldValue("quantity", itemToEdit.quantity);
-  form.setFieldValue("price", itemToEdit.price);
-  form.setFieldValue("reduction", itemToEdit.reduction);
-  form.setFieldValue("vatRate", itemToEdit.vatRate);
-  function handleSubmit(type: EditItemFormProps["typeOfForm"]) {
-    const newItem = {
+  const [itemToEdit, setItemToEdit] = useState<InvoiceItem>(item);
+  const formContent = {
+    ...itemToEdit,
+    date: dayjs(itemToEdit.date, dateFormat),
+  };
+  form.setFieldsValue(formContent);
+  async function handleSubmit(type: EditItemFormProps["typeOfForm"]) {
+    await form.validateFields();
+    const newItem: InvoiceItem = {
       denomination: itemToEdit.denomination,
       quantity: itemToEdit.quantity,
       price: itemToEdit.price,
       reduction: itemToEdit.reduction,
       vatRate: itemToEdit.vatRate,
-      ht:
-        itemToEdit.quantity *
-        itemToEdit.price *
-        (1 - itemToEdit.reduction / 100),
+      date: itemToEdit.date,
       ttc:
         itemToEdit.quantity *
         itemToEdit.price *
@@ -114,10 +114,30 @@ function EditItemForm(props: EditItemFormProps) {
             }
           />
         </Form.Item>
+        <Form.Item label="Date" name="date">
+          <DatePicker
+            format={dateFormat}
+            onChange={(value) => {
+              if (value) {
+                setItemToEdit({
+                  ...itemToEdit,
+                  date: value?.format(dateFormat),
+                });
+              }
+            }}
+          />
+        </Form.Item>
         <Form.Item
           label="Quantité"
           name="quantity"
-          rules={[{ required: true, message: "Quantité du produit" }]}
+          rules={[
+            {
+              required: true,
+              message: "Quantité du produit",
+              type: "number",
+              min: 1,
+            },
+          ]}
         >
           <InputNumber
             onChange={(e) => {
@@ -132,7 +152,14 @@ function EditItemForm(props: EditItemFormProps) {
         <Form.Item
           label="Prix Unitaire en €"
           name="price"
-          rules={[{ required: true, message: "Le prix unitaire du produit" }]}
+          rules={[
+            {
+              required: true,
+              message: "Le prix unitaire du produit",
+              type: "number",
+              min: 0,
+            },
+          ]}
         >
           <InputNumber
             onChange={(e) =>
@@ -147,7 +174,14 @@ function EditItemForm(props: EditItemFormProps) {
         <Form.Item
           label="Réduction en %"
           name="reduction"
-          rules={[{ required: true, message: "Une éventuelle réduction" }]}
+          rules={[
+            {
+              required: true,
+              message: "Une éventuelle réduction",
+              type: "number",
+              min: 0,
+            },
+          ]}
         >
           <InputNumber
             onChange={(e) =>
@@ -162,7 +196,14 @@ function EditItemForm(props: EditItemFormProps) {
         <Form.Item
           label="Taux TVA en %"
           name="vatRate"
-          rules={[{ required: true, message: "Le taux de TVA" }]}
+          rules={[
+            {
+              required: true,
+              message: "Le taux de TVA",
+              type: "number",
+              min: 0,
+            },
+          ]}
         >
           <InputNumber
             onChange={(e) =>

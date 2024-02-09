@@ -56,26 +56,32 @@ function EditCustommer(props: EditCustommerProps) {
               </div>
               <div>
                 <p className="edit-custommer-name">{custommer.name}</p>
-                <p className="edit-custommer-address-section">
-                  Adresse de livraison:{" "}
-                </p>
-                <p>{custommer.deliveryAddress.location}</p>
-                <p>
-                  {custommer.deliveryAddress.postalCode}{" "}
-                  {custommer.deliveryAddress.city}
-                </p>
-                {custommer.billingAddress !== custommer.deliveryAddress && (
-                  <>
-                    <p className="edit-custommer-address-section">
-                      Adresse de facturation:{" "}
+                <div className="edit-custommer-address-section">
+                  <div>
+                    <p className="edit-custommer-address-section-title">
+                      Adresse de livraison:{" "}
                     </p>
-                    <p>{custommer.billingAddress.location} </p>
+                    <p>{custommer.deliveryAddress.location}</p>
                     <p>
-                      {custommer.billingAddress.postalCode}{" "}
-                      {custommer.billingAddress.city}{" "}
+                      {custommer.deliveryAddress.postalCode}
+                      {", "}
+                      {custommer.deliveryAddress.city}
                     </p>
-                  </>
-                )}
+                  </div>
+                  {custommer.billingAddress !== custommer.deliveryAddress && (
+                    <div>
+                      <p className="edit-custommer-address-section-title">
+                        Adresse de facturation:{" "}
+                      </p>
+                      <p>{custommer.billingAddress.location} </p>
+                      <p>
+                        {custommer.billingAddress.postalCode}
+                        {", "}
+                        {custommer.billingAddress.city}{" "}
+                      </p>
+                    </div>
+                  )}
+                </div>
                 {custommer.vatNumber && <p>TVA: {custommer.vatNumber}</p>}
               </div>
             </div>

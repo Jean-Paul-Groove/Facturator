@@ -4,15 +4,13 @@
   z-index: 2;
   --size: 20vh;
   --animation-duration: 2s;
-  --cubeColor: #82cef9;
-  --cubeBorder: #ffffff;
-  --cubeShadow: #b8cbd0;
   height: 100%;
   width: 100%;
   display: grid;
   place-items: center;
   animation: reveal 1s;
   font-weight: bold;
+  color: var(--cubeBorderColor);
 }
 .cube {
   transform-style: preserve-3d;
@@ -31,7 +29,7 @@
   position: absolute;
   inset: 0;
   background-color: var(--cubeColor);
-  border: solid 1px var(--cubeBorder);
+  border: solid 3px var(--cubeBorderColor);
   overflow: hidden;
   display: grid;
   place-items: center;

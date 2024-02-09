@@ -6,6 +6,7 @@ type Company = {
   legalReference: string;
   phoneNumber?: string;
   email?: string;
+  vat: boolean;
   vatNumber?: string;
 };
 

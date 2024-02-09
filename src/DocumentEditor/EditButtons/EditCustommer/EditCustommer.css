@@ -1,10 +1,18 @@
-.edit-custommer-name{
-    font-weight: bold;
+.edit-custommer-name {
+  font-weight: bold;
 }
-.edit-custommer-address-section{
-    text-decoration: underline;
+.edit-custommer-address-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
 }
-.edit-custommer-openForm-button{
-    position: absolute;
-    right: 10px;
+.edit-custommer-address-section-title {
+  text-decoration: underline;
+}
+
+.edit-custommer-openForm-button {
+  position: absolute;
+  right: 10px;
 }

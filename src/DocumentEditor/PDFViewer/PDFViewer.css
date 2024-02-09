@@ -1,7 +1,6 @@
 .pdfviewer-view {
   width: fit-content;
   margin: 0 auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.222);
   position: relative;
   --pageControlsShadow: 1px 1px 7px rgba(0, 0, 0, 0.175);
 }
@@ -11,6 +10,7 @@
 }
 .pdfviewer-page {
   width: fit-content;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.222);
 }
 .pdfviewer-pageControls {
   position: absolute;
@@ -19,13 +19,18 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 10px 15px;
+  display: flex;
+  place-items: center;
   border-radius: 10px;
   background-color: white;
   box-shadow: var(--pageControlsShadow);
   transition: all 0.25s ease-in-out;
   z-index: 5;
 }
-
+.pdfviewer-pageControls-pagenumber {
+  white-space: nowrap;
+  margin: 0 5px;
+}
 @media (pointer: fine) {
   .pdfviewer-pageControls {
     opacity: 0;

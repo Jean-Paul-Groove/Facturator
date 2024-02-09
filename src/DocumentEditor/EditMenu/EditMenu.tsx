@@ -6,7 +6,7 @@ import EditHeader from "../EditButtons/EditHeader/EditHeader";
 import EditItems from "../EditButtons/EditItems/EditItems";
 import EditLogo from "../EditButtons/EditLogo/EditLogo";
 import EditTheme from "../EditButtons/EditTheme/EditTheme";
-import PDFDocument from "../PDFPage/PDFDocument";
+import PDFDocument from "../PDFDocument/PDFDocument";
 import Custommer from "../../types/Custommer";
 import InvoiceItem from "../../types/InvoiceItem";
 import Company from "../../types/Company";

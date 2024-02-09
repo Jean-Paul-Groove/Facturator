@@ -5,6 +5,7 @@ import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "./PDFViewer.css";
 import Loader from "../../Loader/Loader";
+import Theme from "../../types/Theme";
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
@@ -12,6 +13,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 type PDFViewerProps = {
   file: File;
+  theme: Theme;
 };
 function PDFViewer(props: PDFViewerProps) {
   const [totalPages, setTotalPages] = useState<number>(0);
@@ -20,7 +22,7 @@ function PDFViewer(props: PDFViewerProps) {
     calculateContainerHeight()
   );
 
-  const { file } = props;
+  const { file, theme } = props;
   useEffect(() => {
     const handleResize = () => {
       setContainerHeight(calculateContainerHeight());
@@ -55,14 +57,14 @@ function PDFViewer(props: PDFViewerProps) {
   return (
     <div className="pdfviewer-view">
       <Document
-        loading={<Loader />}
+        loading={<Loader theme={theme} />}
         className={"pdfviewer-document"}
         file={file}
         onLoadSuccess={onDocumentLoadSuccess}
       >
         {
           <Page
-            loading={<Loader />}
+            loading={<Loader theme={theme} />}
             devicePixelRatio={2}
             height={containerHeight}
             className={"pdfviewer-page"}
@@ -73,8 +75,10 @@ function PDFViewer(props: PDFViewerProps) {
       <p className="pdfviewer-pageControls">
         {pageNumber - 1 >= 1 && (
           <button onClick={() => changePage(-1)}>{"<"}</button>
-        )}{" "}
-        Page {pageNumber} / {totalPages}{" "}
+        )}
+        <p className="pdfviewer-pageControls-pagenumber">
+          Page {pageNumber} / {totalPages}
+        </p>
         {pageNumber + 1 <= totalPages && (
           <button onClick={() => changePage(1)}>{">"}</button>
         )}

@@ -1,8 +1,18 @@
+import Theme from "../types/Theme";
 import "./Loader.css";
 
-function Loader() {
+type LoaderProps = {
+  theme: Theme;
+};
+
+function Loader(props: LoaderProps) {
+  const { theme } = props;
+  const loaderStyle = {
+    "--cubeColor": theme.color,
+    "--cubeBorderColor": theme.fontColor,
+  } as React.CSSProperties;
   return (
-    <div className="scene">
+    <div style={loaderStyle} className="scene">
       <div className="cube-wrapper">
         <div className="cube">
           <div className="cube-faces">

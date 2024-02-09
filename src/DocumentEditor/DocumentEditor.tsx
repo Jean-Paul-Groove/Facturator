@@ -9,39 +9,40 @@ import Header from "../types/Header";
 import PDFViewer from "./PDFViewer/PDFViewer";
 import Theme from "../types/Theme";
 import Logo from "../types/Logo";
-import defaultLogo from "../assets/logo/Poster psyché.jpg";
-import PDFDocument from "./PDFPage/PDFDocument";
+import defaultLogo from "../assets/logo/logoPlaceholder.jpg";
+import PDFDocument from "./PDFDocument/PDFDocument";
 import EditMenu from "./EditMenu/EditMenu";
 const emptyAddress: Address = {
-  location: "245 rue Hasard",
+  location: "1 rue ",
   postalCode: "01234",
-  city: "Cherbourg",
+  city: "Ville",
 };
 function DocumentEditor() {
   const [itemList, setItemList] = useState<InvoiceItem[]>([
     {
-      denomination: "Perruque blonde",
-      quantity: 12,
-      price: 25,
+      denomination: "Service",
+      quantity: 1,
+      price: 0,
       vatRate: 0,
       reduction: 0,
-      ht: 300,
-      ttc: 300,
+      date: "01.01.24",
+      ttc: 0,
     },
   ]);
   const [custommer, setCustommer] = useState<Custommer>({
-    name: "Marylin Monroe",
+    name: "Client",
     deliveryAddress: emptyAddress,
     billingAddress: emptyAddress,
   });
   const [company, setCompany] = useState<Company>({
-    name: "Perruque Limited",
+    name: "Entreprise",
     address: emptyAddress,
-    legalReference: "SIRET: 01234567891234",
+    legalReference: "SIRET",
+    vat: false,
   });
   const [header, setHeader] = useState<Header>({
     number: "2024-0000",
-    date: "01/01/1900",
+    date: "01/01/2024",
   });
   const [pdfFile, setPdfFile] = useState<File | undefined>();
   const [theme, setTheme] = useState<Theme>({
@@ -50,7 +51,7 @@ function DocumentEditor() {
   });
   const [logo, setLogo] = useState<Logo>({
     url: defaultLogo,
-    name: "Caméléon",
+    name: "logo",
   });
   const editMenuProps = {
     editHeader: {
@@ -108,7 +109,7 @@ function DocumentEditor() {
           <EditMenu {...editMenuProps} />
         </div>
         <div className="pdf-container">
-          {pdfFile && <PDFViewer file={pdfFile} />}
+          {pdfFile && <PDFViewer file={pdfFile} theme={theme} />}
         </div>
       </div>
     </>

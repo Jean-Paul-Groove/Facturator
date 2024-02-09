@@ -35,7 +35,7 @@ function EditItems(props: EditItemProps) {
     setOpenItemForm(true);
   };
   const editItem = (index: number) => {
-    if (items[index]) {
+    if (newItemList[index]) {
       setTypeOfForm("edit");
       setItemIndex(index);
       setOpenItemForm(true);
@@ -44,7 +44,7 @@ function EditItems(props: EditItemProps) {
     }
   };
   const deleteItem = (index: number) => {
-    const newItems = [...items];
+    const newItems = [...newItemList];
     newItems.splice(index, 1);
     setNewItemList(newItems);
   };

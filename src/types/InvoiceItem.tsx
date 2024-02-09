@@ -4,7 +4,7 @@ type InvoiceItem = {
   price: number;
   vatRate: number;
   reduction: number;
-  ht: number;
+  date: string;
   ttc: number;
 };
 
