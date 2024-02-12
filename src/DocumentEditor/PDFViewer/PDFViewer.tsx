@@ -76,9 +76,9 @@ function PDFViewer(props: PDFViewerProps) {
         {pageNumber - 1 >= 1 && (
           <button onClick={() => changePage(-1)}>{"<"}</button>
         )}
-        <p className="pdfviewer-pageControls-pagenumber">
+        <span className="pdfviewer-pageControls-pagenumber">
           Page {pageNumber} / {totalPages}
-        </p>
+        </span>
         {pageNumber + 1 <= totalPages && (
           <button onClick={() => changePage(1)}>{">"}</button>
         )}

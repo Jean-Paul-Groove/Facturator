@@ -13,6 +13,10 @@ import Company from "../../types/Company";
 import Header from "../../types/Header";
 import Theme from "../../types/Theme";
 import Logo from "../../types/Logo";
+import OpenSans from "../../assets/fonts/Open_Sans/static/OpenSans-Light.ttf";
+import OpenSansItalic from "../../assets/fonts/Open_Sans/static/OpenSans-LightItalic.ttf";
+import OpenSans500 from "/src/assets/fonts/Open_Sans/static/OpenSans-Regular.ttf";
+import OpenSans400 from "/src/assets/fonts/Open_Sans/static/OpenSans-Medium.ttf";
 
 type PDFDocumentProps = {
   items: InvoiceItem[];
@@ -28,17 +32,17 @@ function PDFDocument(props: PDFDocumentProps) {
   Font.register({
     family: "OpenSans",
     fonts: [
-      { src: "/src/assets/fonts/Open_Sans/static/OpenSans-Light.ttf" },
+      { src: OpenSans },
       {
-        src: "/src/assets/fonts/Open_Sans/static/OpenSans-LightItalic.ttf",
+        src: OpenSansItalic,
         fontStyle: "italic",
       },
       {
-        src: "/src/assets/fonts/Open_Sans/static/OpenSans-Regular.ttf",
+        src: OpenSans500,
         fontWeight: 500,
       },
       {
-        src: "/src/assets/fonts/Open_Sans/static/OpenSans-Medium.ttf",
+        src: OpenSans400,
         fontWeight: 400,
       },
     ],
