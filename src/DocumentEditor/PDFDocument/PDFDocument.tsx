@@ -120,6 +120,7 @@ function PDFDocument(props: PDFDocumentProps) {
       textAlign: "center",
       border: "1px solid " + theme.color,
       borderRadius: "5px",
+      borderBottomRightRadius: 0,
     },
     tableRow: {
       flexDirection: "row",
@@ -163,7 +164,7 @@ function PDFDocument(props: PDFDocumentProps) {
     tableTotal: {
       position: "absolute",
       top: "100%",
-      right: 0,
+      right: -1,
       padding: 4,
       minWidth: "15vw",
       backgroundColor: theme.color,
